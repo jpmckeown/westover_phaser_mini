@@ -19,11 +19,11 @@ const gameConfig: Phaser.Types.Core.GameConfig = {
   pixelArt: true,
   scale: {
     parent: 'game-container',
-    width: 800,
-    height: 600,
-    autoCenter: Phaser.Scale.CENTER_BOTH,
+    width: 480,
+    height: 640,
+   //  autoCenter: Phaser.Scale.CENTER_BOTH,
   },
-  backgroundColor: '#5c5b5b',
+  backgroundColor: '#d3d3d3',
   scene: [Game],
 };
 
