@@ -1,16 +1,21 @@
 import Phaser from 'phaser';
 
+const SPRITE_ASSET_KEY = 'SPRITE_ASSET_KEY';
+
 class Game extends Phaser.Scene {
   constructor() {
     super({ key: 'Game' });
   }
 
   preload(): void {
-    // load in data
+    this.load.spritesheet('SPRITE_ASSET_KEY', 'assets/images/blocks.png', {
+      frameWidth: 16,
+      frameHeight: 16,
+    });
   }
 
   create(): void {
-    // Create game objects
+    this.add.image(50, 50, SPRITE_ASSET_KEY, 2);
   }
 }
 
