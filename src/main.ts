@@ -15,7 +15,11 @@ class Game extends Phaser.Scene {
   }
 
   create(): void {
-    this.add.image(50, 50, SPRITE_ASSET_KEY, 2);
+   let left = 30;
+   let top = 90;
+   let gap = 140
+    this.add.image(left, top, SPRITE_ASSET_KEY, 2).setScale(6).setOrigin(0);
+
     this.add.text(240, 40, 'Tic-Tac', {
       fontSize: '42px',
       fontFamily: 'Verdana',
@@ -30,17 +34,15 @@ class Game extends Phaser.Scene {
     }).setOrigin(0.5);
 
     const graphics = this.add.graphics();
-    let left = 30;
-    let top = 90;
-    let gap = 140
     graphics.lineStyle(12, 0x3e3e3e);
     for (let i = 1; i < 3; i++) {
       graphics.lineBetween(left+i*gap, top, left + i*gap, top+3*gap);
       graphics.lineBetween(left, top+gap*i, left+3*gap, top+gap*i);         
     }
-   //  for (let j = 1; j < 3; j++) {
-   //    graphics.lineBetween(left, top+gap*j, left+3*gap, top+gap*j);      
-   //  }
+  }
+
+  #addGamePiece(): void {
+    // this.add.image(left, top, SPRITE_ASSET_KEY, 2).setScale(6).setOrigin(0);
   }
 }
 
