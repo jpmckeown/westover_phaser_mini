@@ -3,60 +3,66 @@ import Phaser from 'phaser';
 const SPRITE_ASSET_KEY = 'SPRITE_ASSET_KEY';
 
 class Game extends Phaser.Scene {
-  constructor() {
-    super({ key: 'Game' });
-  }
+   private left: number = 30;
+   private top: number = 90;
+   private gap: number = 140;
 
-  preload(): void {
-    this.load.spritesheet('SPRITE_ASSET_KEY', 'assets/images/blocks.png', {
-      frameWidth: 16,
-      frameHeight: 16,
-    });
-  }
+   constructor() {
+      super({ key: 'Game' });
+   }
 
-  create(): void {
-   let left = 30;
-   let top = 90;
-   let gap = 140
-    this.add.image(left, top, SPRITE_ASSET_KEY, 2).setScale(6).setOrigin(0);
+   preload(): void {
+      this.load.spritesheet('SPRITE_ASSET_KEY', 'assets/images/blocks.png', {
+         frameWidth: 16,
+         frameHeight: 16,
+      });
+   }
 
-    this.add.text(240, 40, 'Tic-Tac', {
-      fontSize: '42px',
-      fontFamily: 'Verdana',
-      color: 'purple',
-      align: 'center',
-    }).setOrigin(0.5);
-    this.add.text(240, 600, 'X turn', {
-      fontSize: '22px',
-      fontFamily: 'Verdana',
-      color: 'black',
-      align: 'center',
-    }).setOrigin(0.5);
+   create(): void {
+      this.add.image(this.left, this.top, SPRITE_ASSET_KEY, 2).setScale(6).setOrigin(0);
 
-    const graphics = this.add.graphics();
-    graphics.lineStyle(12, 0x3e3e3e);
-    for (let i = 1; i < 3; i++) {
-      graphics.lineBetween(left+i*gap, top, left + i*gap, top+3*gap);
-      graphics.lineBetween(left, top+gap*i, left+3*gap, top+gap*i);         
-    }
-  }
+      this.add.text(240, 40, 'Tic-Tac', {
+         fontSize: '42px',
+         fontFamily: 'Verdana',
+         color: 'purple',
+         align: 'center',
+      }).setOrigin(0.5);
+      this.add.text(240, 600, 'X turn', {
+         fontSize: '22px',
+         fontFamily: 'Verdana',
+         color: 'black',
+         align: 'center',
+      }).setOrigin(0.5);
 
-  #addGamePiece(): void {
-    // this.add.image(left, top, SPRITE_ASSET_KEY, 2).setScale(6).setOrigin(0);
-  }
+      const graphics = this.add.graphics();
+      graphics.lineStyle(12, 0x3e3e3e);
+      for (let i = 1; i < 3; i++) {
+         graphics.lineBetween(this.left + i * this.gap, this.top, this.left + i * this.gap, this.top + 3 * this.gap);
+         graphics.lineBetween(this.left, this.top + this.gap * i, this.left + 3 * this.gap, this.top + this.gap * i);
+      }
+
+      this.#addGamePiece(0, 0);
+   }
+
+   #addGamePiece(x: number, y: number): void {
+      const pieceSize = 96;
+      const xPos = this.left + (pieceSize + pieceSize / 2) * x;
+      const yPos = this.top + (pieceSize + pieceSize / 2) * y;
+      this.add.image(xPos, yPos, SPRITE_ASSET_KEY, 2).setScale(6).setOrigin(0);
+   }
 }
 
 const gameConfig: Phaser.Types.Core.GameConfig = {
-  type: Phaser.CANVAS,
-  pixelArt: true,
-  scale: {
-    parent: 'game-container',
-    width: 480,
-    height: 640,
-   //  autoCenter: Phaser.Scale.CENTER_BOTH,
-  },
-  backgroundColor: '#d3d3d3',
-  scene: [Game],
+   type: Phaser.CANVAS,
+   pixelArt: true,
+   scale: {
+      parent: 'game-container',
+      width: 480,
+      height: 640,
+      //  autoCenter: Phaser.Scale.CENTER_BOTH,
+   },
+   backgroundColor: '#d3d3d3',
+   scene: [Game],
 };
 
 const game = new Phaser.Game(gameConfig);
