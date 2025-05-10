@@ -5,6 +5,10 @@ import { TicTacGame } from './TicTacGame';
 // import { PongGame } from './PongGame';
 // import { SnakeGame } from './SnakeGame';
 
+import TicTac, { testTicTac } from './tictac';
+// Make testTicTac available globally for console access
+(window as any).testTicTac = testTicTac;
+
 // The game configuration
 const gameConfig: Phaser.Types.Core.GameConfig = {
    type: Phaser.AUTO,
