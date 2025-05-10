@@ -11,9 +11,35 @@ export default class TicTac {
    #currentPlayerTurn: Player = Player.X;
    #winner: GameWinner = undefined;
    #winningCells: WinningCells = undefined;
+   #isGameOver: boolean = false;
 
    constructor() {
       this.#initializeBoard();
+      console.log(this.#board);
+   }
+
+   public makeMove(x: number, y: number): void {
+      if (this.#board[x][y] !== '') {
+         return;
+      }
+
+      if (this.#currentPlayerTurn === Player.X) {
+         this.#board[x][y] = 'X';
+      } else {
+         this.#board[x][y] = 'O';
+      }
+
+      if (this.#currentPlayerTurn === Player.X) {
+         this.#currentPlayerTurn = Player.O;
+      } else {
+         this.#currentPlayerTurn = Player.X;
+      }
+
+      this.#checkForGameOver();
+   }
+
+   #checkForGameOver(): void {
+
    }
 
    #initializeBoard(): void {
@@ -21,6 +47,9 @@ export default class TicTac {
       this.#winner = undefined;
       this.#winningCells = undefined;
       this.#board = [];
+      this.#isGameOver = false;
+
+      //console.log(this.#board);
       for (let i = 0; i < 3; i++) {
          this.#board.push([]);
          for (let j = 0; j < 3; j++) {
@@ -42,16 +71,16 @@ export default class TicTac {
       console.log(this.#board[1]);
       console.log(this.#board[2]);
       console.log("Current player:", this.#currentPlayerTurn);
-   }
-}
+   };
+};
 
 export function testTicTac() {
    const game = new TicTac();
 
    // Use the class method that has access to private fields
-   game.logSimple();
+   // game.logSimple();
 
-   // Store the instance for later use
+   // Store instance for later use
    (window as any).gameInstance = game;
 
    // Return nothing to avoid showing the object in console

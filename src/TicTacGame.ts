@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+import TicTac from './tictac';
 
 const SPRITE_ASSET_KEY = 'SPRITE_ASSET_KEY';
 
@@ -20,7 +21,8 @@ export class TicTacGame extends Phaser.Scene {
    }
 
    create(): void {
-      // Create back button
+      const tictac = new TicTac();
+
       const backButton = this.add.text(20, 20, '< Menu', {
          fontSize: '18px',
          fontFamily: 'Arial',
