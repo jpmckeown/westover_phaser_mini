@@ -39,7 +39,48 @@ export default class TicTac {
    }
 
    #checkForGameOver(): void {
+      // rows check
+      if (this.#board[0][0] !== '' && this.#board[0][0] === this.#board[0][1] &&
+         this.#board[0][0] === this.#board[0][2]) {
+         this.#winner = this.#board[0][0];
+      } else if (this.#board[1][0] != '' && this.#board[1][0] === this.#board[1][1] &&
+         this.#board[1][0] === this.#board[1][2]) {
+         this.#winner = this.#board[1][0];
+      } else if (this.#board[2][0] != '' && this.#board[2][0] === this.#board[2][1] &&
+         this.#board[2][0] === this.#board[2][2]) {
+         this.#winner = this.#board[2][0];
+      }
+      // columns check
+      if (this.#board[0][0] !== '' && this.#board[0][0] === this.#board[1][0] &&
+         this.#board[0][0] === this.#board[2][0]) {
+         this.#winner = this.#board[0][0];
+      } else if (this.#board[0][1] != '' && this.#board[0][1] === this.#board[1][1] &&
+         this.#board[0][1] === this.#board[1][2]) {
+         this.#winner = this.#board[0][1];
+      } else if (this.#board[0][2] != '' && this.#board[0][2] === this.#board[1][2] &&
+         this.#board[0][2] === this.#board[2][2]) {
+         this.#winner = this.#board[0][2];
+      }
+      // diagonals check
+      if (this.#board[0][0] !== '' && this.#board[0][0] === this.#board[1][1] &&
+         this.#board[0][0] === this.#board[2][2]) {
+         this.#winner = this.#board[0][0];
+      } else if (this.#board[0][2] != '' && this.#board[0][2] === this.#board[1][1] &&
+         this.#board[0][2] === this.#board[2][0]) {
+         this.#winner = this.#board[0][2];
+      }
 
+      if (this.#winner !== undefined) {
+         this.#isGameOver = true;
+         return;
+      }
+
+      const isBoardFull = this.#board.every(row => row.every(cell => cell !== ''));
+      if (isBoardFull) {
+         this.#winner = 'Draw';
+         this.#isGameOver = true;
+         return;
+      }
    }
 
    #initializeBoard(): void {
