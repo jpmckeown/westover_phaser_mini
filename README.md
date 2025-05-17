@@ -21,8 +21,7 @@ A Phaser 3 TypeScript example TEMPLATE.
 
 ### Writing Code
 
-After cloning the repo, run `yarn install --frozen-lockfile` from your project directory. Then, you can start the local development
-server by running `yarn start`.
+After cloning the repo, run `yarn install --frozen-lockfile` from your project directory. Then, you can start the local development server by running `yarn start`.
 
 After starting the development server with `yarn start`, you can edit any files in the `src` folder
 and parcel will automatically recompile and reload your server (available at `http://localhost:8080`

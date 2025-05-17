@@ -33,9 +33,6 @@ export class TicTacGame extends Phaser.Scene {
          .setInteractive({ useHandCursor: true })
          .on('pointerdown', () => this.returnToMenu());
 
-      // Add initial piece in top-left
-      this.add.image(this.left, this.top, SPRITE_ASSET_KEY, 2).setScale(this.pieceMagnify).setOrigin(0);
-
       // Game title
       this.add.text(240, 40, 'Tic-Tac', {
          fontSize: '42px',
@@ -60,7 +57,15 @@ export class TicTacGame extends Phaser.Scene {
          graphics.lineBetween(this.left, this.top + this.gap * i, this.left + 3 * this.gap, this.top + this.gap * i);
       }
 
-      // Add game piece at bottom-right (as in the original code)
+      // add game pieces
+      this.addGamePiece(0, 0);
+      this.addGamePiece(0, 1);
+      this.addGamePiece(0, 2);
+      this.addGamePiece(1, 0);
+      this.addGamePiece(1, 1);
+      this.addGamePiece(1, 2);
+      this.addGamePiece(2, 0);
+      this.addGamePiece(2, 1);
       this.addGamePiece(2, 2);
    }
 

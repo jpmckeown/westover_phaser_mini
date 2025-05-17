@@ -13,17 +13,6 @@ export class MainMenu extends Phaser.Scene {
          title: 'Tic-Tac',
          description: 'The classic game of X\'s and O\'s'
       },
-      // Add more games here as you create them
-      // {
-      //   key: 'PongGame',
-      //   title: 'Pong',
-      //   description: 'Classic arcade tennis'
-      // },
-      // {
-      //   key: 'SnakeGame',
-      //   title: 'Snake',
-      //   description: 'Eat the food and grow longer'
-      // }
    ];
 
    private menuItems: Phaser.GameObjects.Text[] = [];
@@ -34,16 +23,12 @@ export class MainMenu extends Phaser.Scene {
    }
 
    preload(): void {
-      // Preload assets needed for the menu
-      // No specific assets needed for a basic menu
    }
 
    create(): void {
-      // Get width and height of the game screen
       const width = this.scale.width;
       const height = this.scale.height;
 
-      // Add title
       this.add.text(
          width / 2,
          50,
@@ -86,7 +71,7 @@ export class MainMenu extends Phaser.Scene {
       this.menuItems.forEach(item => item.destroy());
       this.menuItems = [];
 
-      // Create new menu items
+      // make menu items
       this.gameList.forEach((game, index) => {
          const y = startY + index * spacing;
 
