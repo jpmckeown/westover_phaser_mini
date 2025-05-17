@@ -4,6 +4,9 @@ import TicTac from './tictac';
 const SPRITE_ASSET_KEY = 'SPRITE_ASSET_KEY';
 
 export class TicTacGame extends Phaser.Scene {
+   #tictac!: TicTac;
+   #playerTurnTextGO!: Phaser.GameObjects.Text;
+
    private left: number = 30;
    private top: number = 90;
    private gap: number = 140;
@@ -21,7 +24,8 @@ export class TicTacGame extends Phaser.Scene {
    }
 
    create(): void {
-      const tictac = new TicTac();
+      //const tictac = new TicTac();
+      this.#tictac = new TicTac();
 
       const backButton = this.add.text(20, 20, '< Menu', {
          fontSize: '18px',
@@ -42,7 +46,7 @@ export class TicTacGame extends Phaser.Scene {
       }).setOrigin(0.5);
 
       // Turn indicator text
-      this.add.text(240, 600, 'X turn', {
+      this.#playerTurnTextGO = this.add.text(240, 600, 'X turn', {
          fontSize: '22px',
          fontFamily: 'Verdana',
          color: 'black',
@@ -58,18 +62,18 @@ export class TicTacGame extends Phaser.Scene {
       }
 
       // add game pieces
-      this.addGamePiece(0, 0);
-      this.addGamePiece(0, 1);
-      this.addGamePiece(0, 2);
-      this.addGamePiece(1, 0);
-      this.addGamePiece(1, 1);
-      this.addGamePiece(1, 2);
-      this.addGamePiece(2, 0);
-      this.addGamePiece(2, 1);
-      this.addGamePiece(2, 2);
+      this.#addGamePiece(0, 0);
+      this.#addGamePiece(0, 1);
+      this.#addGamePiece(0, 2);
+      this.#addGamePiece(1, 0);
+      this.#addGamePiece(1, 1);
+      this.#addGamePiece(1, 2);
+      this.#addGamePiece(2, 0);
+      this.#addGamePiece(2, 1);
+      this.#addGamePiece(2, 2);
    }
 
-   private addGamePiece(x: number, y: number): void {
+   #addGamePiece(x: number, y: number): void {
       const xPos = this.left + 15 + this.gap * y;
       const yPos = this.top + 15 + this.gap * x;
       const piece = this.add.image(xPos, yPos, SPRITE_ASSET_KEY, 2)
@@ -79,6 +83,17 @@ export class TicTacGame extends Phaser.Scene {
 
       piece.once(Phaser.Input.Events.POINTER_DOWN as string, () => {
          console.log(x, y);
+         if (this.#tictac.isGameOver) {
+            return;
+         }
+         const currentPlayer = this.#tictac.currentPlayerTurn;
+         this.#tictac.makeMove(x, y);
+
+         if (currentPlayer === 'X') {
+            piece.setFrame(0);
+         } else {
+            piece.setFrame(1);
+         }
       });
    }
 
