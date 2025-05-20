@@ -21,6 +21,8 @@ export class SimonGame extends Phaser.Scene {
    }
 
    create(): void {
+      const button = this.#makeButton(20, 80, 0xdb0a8b);
+      //this.add.rectangle(20, 80, 200, 200, 0xdb0a8b).setOrigin(0);
 
       const backButton = this.add.text(20, 20, '< Menu', {
          fontSize: '18px',
@@ -31,6 +33,12 @@ export class SimonGame extends Phaser.Scene {
       })
          .setInteractive({ useHandCursor: true })
          .on('pointerdown', () => this.returnToMenu());
+   }
+
+   #makeButton(x: number, y: number, color: number): Phaser.GameObjects.Rectangle {
+      const button = this.add.rectangle(x, y, 200, 200, color).setOrigin(0);
+      button.setInteractive({ useHandCursor: true });
+      return button;
    }
 
    private returnToMenu(): void {
