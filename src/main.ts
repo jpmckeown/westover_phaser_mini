@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
 import { MainMenu } from './MainMenu';
 import { TicTacGame } from './TicTacGame';
+import { SimonGame } from './SimonGame';
 // Import other games here as you create them
-// import { PongGame } from './PongGame';
 // import { SnakeGame } from './SnakeGame';
 
 import TicTac, { testTicTac } from './tictac';
@@ -24,7 +24,7 @@ const gameConfig: Phaser.Types.Core.GameConfig = {
    scene: [
       MainMenu,
       TicTacGame,
-      // Add other game scenes here
+      SimonGame
       // PongGame,
       // SnakeGame,
    ]

@@ -11,7 +11,12 @@ export class MainMenu extends Phaser.Scene {
       {
          key: 'TicTacGame',
          title: 'Tic-Tac',
-         description: 'The classic game of X\'s and O\'s'
+         description: 'Noughts and crosses in 3x3 grid'
+      },
+      {
+         key: 'SimonGame',
+         title: 'Simon',
+         description: 'Audio and colour square buttons'
       },
    ];
 

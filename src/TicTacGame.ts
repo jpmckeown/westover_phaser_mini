@@ -24,7 +24,6 @@ export class TicTacGame extends Phaser.Scene {
    }
 
    create(): void {
-      //const tictac = new TicTac();
       this.#tictac = new TicTac();
 
       const backButton = this.add.text(20, 20, '< Menu', {
