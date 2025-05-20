@@ -94,6 +94,16 @@ export class TicTacGame extends Phaser.Scene {
          } else {
             piece.setFrame(1);
          }
+
+         if (this.#tictac.isGameOver && this.#tictac.winner !== 'Draw') {
+            this.#playerTurnTextGO.setText(`${currentPlayer} wins!`);
+            return;
+         }
+         if (this.#tictac.isGameOver) {
+            this.#playerTurnTextGO.setText(this.#tictac.winner as string);
+            return;
+         }
+         this.#playerTurnTextGO.setText(`${this.#tictac.currentPlayerTurn} turn`);
       });
    }
 

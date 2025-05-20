@@ -67,7 +67,7 @@ export default class TicTac {
          this.#board[0][0] === this.#board[2][0]) {
          this.#winner = this.#board[0][0];
       } else if (this.#board[0][1] != '' && this.#board[0][1] === this.#board[1][1] &&
-         this.#board[0][1] === this.#board[1][2]) {
+         this.#board[0][1] === this.#board[2][1]) {
          this.#winner = this.#board[0][1];
       } else if (this.#board[0][2] != '' && this.#board[0][2] === this.#board[1][2] &&
          this.#board[0][2] === this.#board[2][2]) {
