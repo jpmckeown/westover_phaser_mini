@@ -24,7 +24,7 @@ const gameConfig: Phaser.Types.Core.GameConfig = {
    scene: [
       MainMenu,
       TicTacGame,
-      SimonGame
+      SimonGame,
       // PongGame,
       // SnakeGame,
    ]
