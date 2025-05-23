@@ -13,6 +13,10 @@ export class SimonGame extends Phaser.Scene {
       super({ key: 'SimonGame' });
    }
 
+   init(): void {
+      this.scale.resize(450, 450);
+   }
+
    preload(): void {
       this.load.audio(ASSET_KEYS.SOUND1, 'assets/audio/simonSound1.mp3');
       this.load.audio(ASSET_KEYS.SOUND2, 'assets/audio/simonSound2.mp3');
@@ -21,10 +25,10 @@ export class SimonGame extends Phaser.Scene {
    }
 
    create(): void {
-      const button1 = this.#makeButton(20, 80, 0xdb0a8b);
-      const button2 = this.#makeButton(230, 80, 0x08c418);
-      const button3 = this.#makeButton(20, 290, 0xe6e600);
-      const button4 = this.#makeButton(230, 290, 0x0066cc);
+      const button1 = this.#makeButton(20, 60, 0xdb0a8b);
+      const button2 = this.#makeButton(230, 60, 0x08c418);
+      const button3 = this.#makeButton(20, 270, 0xe6e600);
+      const button4 = this.#makeButton(230, 270, 0x0066cc);
       //this.add.rectangle(20, 80, 200, 200, 0xdb0a8b).setOrigin(0);
 
       const backButton = this.add.text(20, 20, '< Menu', {
@@ -45,6 +49,7 @@ export class SimonGame extends Phaser.Scene {
    }
 
    private returnToMenu(): void {
+      this.scale.resize(480, 640);
       this.scene.start('MainMenu');
    }
 }

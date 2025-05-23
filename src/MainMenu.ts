@@ -4,6 +4,8 @@ interface GameMenuItem {
    key: string;
    title: string;
    description: string;
+   width?: number;  // Optional custom width
+   height?: number; // Optional custom height
 }
 
 export class MainMenu extends Phaser.Scene {
@@ -11,12 +13,16 @@ export class MainMenu extends Phaser.Scene {
       {
          key: 'TicTacGame',
          title: 'Tic-Tac',
-         description: 'Noughts and crosses in 3x3 grid'
+         description: 'Noughts and crosses in 3x3 grid',
+         width: 480,
+         height: 640
       },
       {
          key: 'SimonGame',
          title: 'Simon',
-         description: 'Audio and colour square buttons'
+         description: 'Audio and colour square buttons',
+         width: 450,  // Different size for Simon
+         height: 450
       },
    ];
 
@@ -31,6 +37,9 @@ export class MainMenu extends Phaser.Scene {
    }
 
    create(): void {
+      // Ensure menu uses standard size
+      this.scale.resize(480, 640);
+
       const width = this.scale.width;
       const height = this.scale.height;
 
@@ -62,19 +71,24 @@ export class MainMenu extends Phaser.Scene {
       this.createMenu();
 
       // Add keyboard input
-      this.input.keyboard.on('keydown-UP', () => this.changeSelection(-1));
-      this.input.keyboard.on('keydown-DOWN', () => this.changeSelection(1));
-      this.input.keyboard.on('keydown-ENTER', () => this.startGame());
-      this.input.keyboard.on('keydown-SPACE', () => this.startGame());
+      this.input.keyboard?.on('keydown-UP', () => this.changeSelection(-1));
+      this.input.keyboard?.on('keydown-DOWN', () => this.changeSelection(1));
+      this.input.keyboard?.on('keydown-ENTER', () => this.startGame());
+      this.input.keyboard?.on('keydown-SPACE', () => this.startGame());
    }
 
    private createMenu(): void {
       const startY = 150;
-      const spacing = 50;
+      const spacing = 70;
 
       // Clear existing menu items
       this.menuItems.forEach(item => item.destroy());
       this.menuItems = [];
+
+      // Clear existing graphics
+      this.children.list
+         .filter(child => child instanceof Phaser.GameObjects.Rectangle)
+         .forEach(rect => rect.destroy());
 
       // make menu items
       this.gameList.forEach((game, index) => {
@@ -84,9 +98,9 @@ export class MainMenu extends Phaser.Scene {
          if (index === this.selectedIndex) {
             this.add.rectangle(
                this.scale.width / 2,
-               y,
-               300,
-               40,
+               y - 10,
+               350,
+               60,
                0x6666ff,
                0.2
             ).setOrigin(0.5);
@@ -95,13 +109,14 @@ export class MainMenu extends Phaser.Scene {
          // Game title text
          const menuItem = this.add.text(
             this.scale.width / 2,
-            y,
+            y - 20,
             game.title,
             {
                fontFamily: 'Arial',
-               fontSize: '20px',
+               fontSize: '24px',
                color: index === this.selectedIndex ? '#000088' : '#000000',
-               align: 'center'
+               align: 'center',
+               fontStyle: 'bold'
             }
          )
             .setOrigin(0.5)
@@ -115,20 +130,34 @@ export class MainMenu extends Phaser.Scene {
                this.refreshMenu();
             });
 
+         // Game description
+         const description = this.add.text(
+            this.scale.width / 2,
+            y + 5,
+            game.description,
+            {
+               fontFamily: 'Arial',
+               fontSize: '14px',
+               color: '#666666',
+               align: 'center'
+            }
+         ).setOrigin(0.5);
+
+         // Canvas size info
+         const sizeInfo = this.add.text(
+            this.scale.width / 2,
+            y + 25,
+            `Canvas: ${game.width || 480} x ${game.height || 640}`,
+            {
+               fontFamily: 'Arial',
+               fontSize: '12px',
+               color: '#888888',
+               align: 'center'
+            }
+         ).setOrigin(0.5);
+
          this.menuItems.push(menuItem);
       });
-
-      this.add.text(
-         this.scale.width / 2,
-         startY + this.gameList.length * spacing + 30,
-         this.gameList[this.selectedIndex].description,
-         {
-            fontFamily: 'Arial',
-            fontSize: '16px',
-            color: '#555555',
-            align: 'center'
-         }
-      ).setOrigin(0.5);
    }
 
    private changeSelection(direction: number): void {
@@ -143,6 +172,12 @@ export class MainMenu extends Phaser.Scene {
 
    private startGame(): void {
       const selectedGame = this.gameList[this.selectedIndex];
+
+      // Resize canvas if the game specifies custom dimensions
+      if (selectedGame.width && selectedGame.height) {
+         this.scale.resize(selectedGame.width, selectedGame.height);
+      }
+
       this.scene.start(selectedGame.key);
    }
 }

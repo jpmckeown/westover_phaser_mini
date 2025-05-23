@@ -16,6 +16,11 @@ export class TicTacGame extends Phaser.Scene {
       super({ key: 'TicTacGame' });
    }
 
+   init(): void {
+      // ensure scene uses correct canvas size
+      this.scale.resize(480, 640);
+   }
+
    preload(): void {
       this.load.spritesheet(SPRITE_ASSET_KEY, 'assets/images/blocks.png', {
          frameWidth: 16,
@@ -107,6 +112,7 @@ export class TicTacGame extends Phaser.Scene {
    }
 
    private returnToMenu(): void {
+      this.scale.resize(480, 640);
       this.scene.start('MainMenu');
    }
 }
