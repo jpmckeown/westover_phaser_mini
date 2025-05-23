@@ -21,7 +21,10 @@ export class SimonGame extends Phaser.Scene {
    }
 
    create(): void {
-      const button = this.#makeButton(20, 80, 0xdb0a8b);
+      const button1 = this.#makeButton(20, 80, 0xdb0a8b);
+      const button2 = this.#makeButton(230, 80, 0x08c418);
+      const button3 = this.#makeButton(20, 290, 0xe6e600);
+      const button4 = this.#makeButton(230, 290, 0x0066cc);
       //this.add.rectangle(20, 80, 200, 200, 0xdb0a8b).setOrigin(0);
 
       const backButton = this.add.text(20, 20, '< Menu', {
@@ -36,7 +39,7 @@ export class SimonGame extends Phaser.Scene {
    }
 
    #makeButton(x: number, y: number, color: number): Phaser.GameObjects.Rectangle {
-      const button = this.add.rectangle(x, y, 200, 200, color).setOrigin(0);
+      const button = this.add.rectangle(x, y, 200, 200, color).setOrigin(0).setAlpha(1);
       button.setInteractive({ useHandCursor: true });
       return button;
    }
