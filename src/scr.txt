@@ -1,0 +1,11 @@
+// main.ts
+      mode: Phaser.Scale.NONE,
+// in a prototype *.ts define its canvas size
+   init(): void {
+      this.scale.resize(450, 450);
+   }
+// and restore menu canvas when exiting game scene
+   private returnToMenu(): void {
+      this.scale.resize(480, 640);
+      this.scene.start('MainMenu');
+   }

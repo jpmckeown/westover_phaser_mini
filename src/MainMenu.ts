@@ -22,7 +22,7 @@ export class MainMenu extends Phaser.Scene {
          title: 'Simon',
          description: 'Audio and colour square buttons',
          width: 450,  // Different size for Simon
-         height: 450
+         height: 480   // extra space for return to Menu button above
       },
    ];
 
