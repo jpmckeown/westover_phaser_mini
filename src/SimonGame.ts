@@ -8,7 +8,7 @@ const ASSET_KEYS = {
 } as const;
 
 export class SimonGame extends Phaser.Scene {
-
+   #buttons!: Phaser.GameObjects.Rectangle[];
    constructor() {
       super({ key: 'SimonGame' });
    }
@@ -29,6 +29,7 @@ export class SimonGame extends Phaser.Scene {
       const button2 = this.#makeButton(230, 50, 0x08c418);
       const button3 = this.#makeButton(20, 260, 0xe6e600);
       const button4 = this.#makeButton(230, 260, 0x0066cc);
+      this.#buttons = [button1, button2, button3, button4];
 
       const backButton = this.add.text(20, 20, '< Menu', {
          fontSize: '18px',
@@ -42,9 +43,19 @@ export class SimonGame extends Phaser.Scene {
    }
 
    #makeButton(x: number, y: number, color: number): Phaser.GameObjects.Rectangle {
-      const button = this.add.rectangle(x, y, 200, 200, color).setOrigin(0);
-      button.setAlpha(0.4);
+      const button = this.add.rectangle(x, y, 200, 200, color);
+      button.setOrigin(0);
+      button.setAlpha(0.5);
       button.setInteractive(); //({ useHandCursor: true });
+      button.on(Phaser.Input.Events.POINTER_OVER as string, () => {
+         console.log('mouse is over button');
+      });
+      button.on(Phaser.Input.Events.POINTER_OUT as string, () => {
+         console.log('mouse out');
+      });
+      button.on(Phaser.Input.Events.POINTER_DOWN as string, () => {
+         console.log('mouse click on button');
+      });
       return button;
    }
 

@@ -9,10 +9,13 @@ import TicTac, { testTicTac } from './tictac';
 // Make testTicTac available globally for console access
 (window as any).testTicTac = testTicTac;
 
+const SKIP_TO_DEV = true;
+
 // The game configuration
 const gameConfig: Phaser.Types.Core.GameConfig = {
-   type: Phaser.AUTO,
+   type: Phaser.WEBGL,
    pixelArt: true,
+   canvasStyle: 'will-read-frequently: true;',
    scale: {
       parent: 'game-container',
       width: 480,
@@ -22,9 +25,9 @@ const gameConfig: Phaser.Types.Core.GameConfig = {
    },
    backgroundColor: '#d3d3d3',
    scene: [
+      SimonGame,
       MainMenu,
       TicTacGame,
-      SimonGame,
       // PongGame,
       // SnakeGame,
    ]
