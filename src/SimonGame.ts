@@ -1,4 +1,5 @@
 import Phaser from 'phaser';
+const BTN_ALPHA_INITIAL = 0.3;
 
 const ASSET_KEYS = {
    SOUND1: 'SOUND1',
@@ -45,12 +46,14 @@ export class SimonGame extends Phaser.Scene {
    #makeButton(x: number, y: number, color: number): Phaser.GameObjects.Rectangle {
       const button = this.add.rectangle(x, y, 200, 200, color);
       button.setOrigin(0);
-      button.setAlpha(0.5);
+      button.setAlpha(BTN_ALPHA_INITIAL);
       button.setInteractive(); //({ useHandCursor: true });
       button.on(Phaser.Input.Events.POINTER_OVER as string, () => {
+         button.setAlpha(1);
          console.log('mouse is over button');
       });
       button.on(Phaser.Input.Events.POINTER_OUT as string, () => {
+         button.setAlpha(BTN_ALPHA_INITIAL);
          console.log('mouse out');
       });
       button.on(Phaser.Input.Events.POINTER_DOWN as string, () => {
