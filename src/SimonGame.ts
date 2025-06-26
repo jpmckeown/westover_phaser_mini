@@ -1,4 +1,6 @@
 import Phaser from 'phaser';
+import Simon from './simon';
+
 const BTN_ALPHA_INITIAL = 0.3;
 
 const ASSET_KEYS = {
@@ -8,22 +10,37 @@ const ASSET_KEYS = {
    SOUND4: 'SOUND4'
 } as const;
 
+type GameState = keyof typeof GAME_STATE;
+
+const GAME_STATE = {
+   INITIAL: 'INITIAL',
+   PLAYING: 'PLAYING',
+   WAITING: 'WAITING',
+   DONE: 'DONE'
+} as const;
+
 export class SimonGame extends Phaser.Scene {
    #buttons!: Phaser.GameObjects.Rectangle[];
+   #gameState!: GameState;
+   #simonGame!: Simon;
+
    constructor() {
       super({ key: 'SimonGame' });
    }
 
    init(): void {
       this.scale.resize(450, 450);
-   }
+      this.#buttons = [];
+      this.#gameState = GAME_STATE.INITIAL;
+      this.#simonGame = new Simon();
+   };
 
    preload(): void {
       this.load.audio(ASSET_KEYS.SOUND1, 'assets/audio/simonSound1.mp3');
       this.load.audio(ASSET_KEYS.SOUND2, 'assets/audio/simonSound2.mp3');
       this.load.audio(ASSET_KEYS.SOUND3, 'assets/audio/simonSound3.mp3');
       this.load.audio(ASSET_KEYS.SOUND4, 'assets/audio/simonSound4.mp3');
-   }
+   };
 
    create(): void {
       const button1 = this.#makeButton(20, 50, 0xdb0a8b);
@@ -41,7 +58,7 @@ export class SimonGame extends Phaser.Scene {
       })
          .setInteractive({ useHandCursor: true })
          .on('pointerdown', () => this.returnToMenu());
-   }
+   };
 
    #makeButton(x: number, y: number, color: number): Phaser.GameObjects.Rectangle {
       const button = this.add.rectangle(x, y, 200, 200, color);
