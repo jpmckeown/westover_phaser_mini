@@ -1,5 +1,6 @@
 import Phaser from 'phaser';
 import Simon from './simon';
+import { sleep } from './utils';
 
 const BTN_ALPHA_INITIAL = 0.3;
 
@@ -58,6 +59,8 @@ export class SimonGame extends Phaser.Scene {
       })
          .setInteractive({ useHandCursor: true })
          .on('pointerdown', () => this.returnToMenu());
+
+      this.#playSequence();
    };
 
    #makeButton(x: number, y: number, color: number): Phaser.GameObjects.Rectangle {
@@ -77,6 +80,11 @@ export class SimonGame extends Phaser.Scene {
          console.log('mouse click on button');
       });
       return button;
+   }
+
+   async #playSequence(): Promise<void> {
+      await sleep(1000);
+      console.log("sleep 1 second");
    }
 
    private returnToMenu(): void {
