@@ -83,7 +83,16 @@ export class SimonGame extends Phaser.Scene {
    }
 
    async #playSequence(): Promise<void> {
-      await sleep(1000);
+      await sleep(700);
+      const currentSequence = this.#simonGame.sequence;
+      console.log("seq" + currentSequence);
+      for (const num of currentSequence) {
+         this.#buttons[num].setAlpha(1);
+         // todo play audio
+         console.log("play sound " + num);
+         await sleep(1000);
+         this.#buttons[num].setAlpha(BTN_ALPHA_INITIAL);
+      }
       console.log("sleep 1 second");
    }
 
